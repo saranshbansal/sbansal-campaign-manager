@@ -3,16 +3,12 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import CampaignName from "./CampaignName";
 import { dateDiffIndays } from "../resources/util";
+import CustomLink from "./library/CustomLink";
+import ShowPriceModal from "./modals/ShowPriceModal";
 
-const styles = () => ({
-  name: {
-    fontWeight: "bold"
-  },
-  region: {
-    opacity: 0.6,
-    fontWeight: "lighter"
-  },
+const styles = theme => ({
   date: {
     fontWeight: "bold"
   },
@@ -25,6 +21,27 @@ class Campaign extends Component {
   static propTypes = {
     data: PropTypes.object.isRequired
   };
+
+  constructor() {
+    super();
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  state = {
+    open: false
+  };
+
+  handleShow() {
+    this.setState({
+      open: true
+    });
+  }
+
+  handleClose() {
+    this.setState({ open: false });
+  }
 
   render() {
     const { data, classes } = this.props;
@@ -50,24 +67,27 @@ class Campaign extends Component {
       </>
     );
 
-    const campaignCellJsx = (
-      <>
-        <div className={classes.name}>{data.name}</div>
-        <div className={classes.region}>{data.region}</div>
-      </>
-    );
-
     return (
-      <TableRow hover={true}>
-        <TableCell>{dateCellJsx}</TableCell>
-        <TableCell>{campaignCellJsx}</TableCell>
-        <TableCell>
-          <span>View Pricing</span>
-        </TableCell>
-        <TableCell>CSV</TableCell>
-        <TableCell>Report</TableCell>
-        <TableCell>Schedule Again</TableCell>
-      </TableRow>
+      <>
+        <TableRow hover={true}>
+          <TableCell>{dateCellJsx}</TableCell>
+          <TableCell>
+            <CampaignName data={data} />
+          </TableCell>
+          <TableCell>
+            <CustomLink label="View Pricing" onClick={this.handleShow} />
+          </TableCell>
+          <TableCell>CSV</TableCell>
+          <TableCell>Report</TableCell>
+          <TableCell>Schedule Again</TableCell>
+        </TableRow>
+        <ShowPriceModal
+          data={data}
+          open={this.state.open}
+          onClose={this.handleClose}
+          maxWidth="sm"
+        />
+      </>
     );
   }
 }

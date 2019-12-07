@@ -19,10 +19,8 @@ body {
   header {
     @include heading-font;
     color: $white;
-    width: 100vw;
     background: $color-primary;
     padding: 0 20px;
-    flex-grow: 1;
 
     img {
       vertical-align: middle;
