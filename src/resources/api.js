@@ -1,7 +1,7 @@
 import { dateDiffIndays } from "./util";
 export const CAMPAIGNS = `api/campaigns`;
 
-export const fetchCampaigns = async offset => {
+export const fetchCampaigns = async () => {
   const url = `${CAMPAIGNS}`;
 
   try {

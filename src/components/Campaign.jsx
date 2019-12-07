@@ -3,10 +3,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import CampaignName from "./CampaignName";
 import { dateDiffIndays } from "../resources/util";
+import CampaignName from "./CampaignName";
 import CustomLink from "./library/CustomLink";
-import ShowPriceModal from "./modals/ShowPriceModal";
+import ShowModal from "./modals/ShowModal";
 
 const styles = theme => ({
   date: {
@@ -25,22 +25,32 @@ class Campaign extends Component {
   constructor() {
     super();
 
-    this.handleShow = this.handleShow.bind(this);
+    this.handleShowPrice = this.handleShowPrice.bind(this);
+    this.handleScheduleDate = this.handleScheduleDate.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
   state = {
-    open: false
+    open: false,
+    type: null,
   };
 
-  handleShow() {
+  handleShowPrice() {
     this.setState({
-      open: true
+      open: true,
+      type: 'price',
+    });
+  }
+
+  handleScheduleDate() {
+    this.setState({
+      open: true,
+      type: 'date',
     });
   }
 
   handleClose() {
-    this.setState({ open: false });
+    this.setState({ open: false, type: null });
   }
 
   render() {
@@ -75,15 +85,21 @@ class Campaign extends Component {
             <CampaignName data={data} />
           </TableCell>
           <TableCell>
-            <CustomLink label="View Pricing" onClick={this.handleShow} />
+            <CustomLink label="View Pricing" onClick={this.handleShowPrice} />
           </TableCell>
           <TableCell>CSV</TableCell>
           <TableCell>Report</TableCell>
-          <TableCell>Schedule Again</TableCell>
+          <TableCell>
+            <CustomLink
+              label="Schedule Again"
+              onClick={this.handleScheduleDate}
+            />
+          </TableCell>
         </TableRow>
-        <ShowPriceModal
+        <ShowModal
           data={data}
           open={this.state.open}
+          type={this.state.type}
           onClose={this.handleClose}
           maxWidth="sm"
         />
