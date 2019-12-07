@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { fetchCampaignsByType } from "../resources/api";
+import { fetchCampaignsByType, updateCampaign } from "../resources/api";
 import CampaignList from "./CampaignList";
 import Loader from "./library/Loader";
 
@@ -8,11 +8,11 @@ class CampaignContainer extends Component {
     super(props);
 
     this.refreshResults = this.refreshResults.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
   }
 
   state = {
     campaigns: [],
-    offset: 0,
     loading: false
   };
 
@@ -20,7 +20,7 @@ class CampaignContainer extends Component {
     this.refreshResults();
   }
 
-  async refreshResults(offset = 0) {
+  async refreshResults() {
     const { campaigns } = this.state;
     const { type } = this.props;
 
@@ -29,7 +29,7 @@ class CampaignContainer extends Component {
     let campaignContent = campaigns;
 
     try {
-      const result = await fetchCampaignsByType(type, offset);
+      const result = await fetchCampaignsByType(type);
 
       if (!!result) {
         result.map(campaign => {
@@ -38,9 +38,25 @@ class CampaignContainer extends Component {
 
         this.setState({
           campaigns: campaignContent,
-          offset: offset,
           loading: false
         });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async handleChangeDate(campaignId, selectedDate) {
+    console.log("date", campaignId, typeof(selectedDate));
+    const { type } = this.props;
+
+    const updatedCampaign = {createdOn: selectedDate.getTime()}
+
+    try {
+      const result = await updateCampaign(type, campaignId, updatedCampaign);
+
+      if (!!result) {
+        this.refreshResults();
       }
     } catch (e) {
       console.error(e);
@@ -58,7 +74,9 @@ class CampaignContainer extends Component {
       <div className="campaigns">
         {loading && <Loader />}
 
-        {showResults && <CampaignList data={campaigns} />}
+        {showResults && (
+          <CampaignList data={campaigns} changeDate={this.handleChangeDate} />
+        )}
       </div>
     );
   }

@@ -1,8 +1,9 @@
 import { dateDiffIndays } from "./util";
-export const CAMPAIGNS = `api/campaigns`;
+export const GET_CAMPAIGNS = `api/campaigns`;
+export const UPDATE_CAMPAIGN = `api/campaign`;
 
 export const fetchCampaigns = async () => {
-  const url = `${CAMPAIGNS}`;
+  const url = `${GET_CAMPAIGNS}`;
 
   try {
     const response = await fetch(url);
@@ -15,11 +16,52 @@ export const fetchCampaigns = async () => {
   return null;
 };
 
-export const fetchCampaignsByType = async (type, offset) => {
-  const url = `${CAMPAIGNS}`;
+export const fetchCampaignsByType = async type => {
+  const url = `${GET_CAMPAIGNS}`;
 
   try {
     const response = await fetch(url);
+
+    let results = await response.json();
+
+    results = results.filter(campaign => {
+      const eventDate = new Date(campaign.createdOn);
+      const daysToGo = dateDiffIndays(new Date(), eventDate);
+
+      switch (type) {
+        case "U":
+          return daysToGo > 0;
+
+        case "L":
+          return daysToGo === 0;
+
+        case "P":
+          return daysToGo < 0;
+        default:
+          return true;
+      }
+    });
+
+    return results;
+  } catch (e) {
+    console.error(e);
+  }
+
+  return null;
+};
+
+export const updateCampaign = async (type, id, data) => {
+  const url = `${UPDATE_CAMPAIGN}/${id}`;
+  console.log(url);
+
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
 
     let results = await response.json();
 

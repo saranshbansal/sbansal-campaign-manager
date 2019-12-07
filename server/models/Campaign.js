@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const campaignSchema = new Schema({
   name: String,
-  description: String
+  createdOn: Number,
+  price: Number,
 });
 
 mongoose.model("campaigns", campaignSchema);

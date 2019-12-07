@@ -23,13 +23,8 @@ class CampaignList extends Component {
     data: []
   };
 
-  changeDate(id, date) {
-    console.log(id, date);
-    
-  }
-
   render() {
-    const { data, classes } = this.props;
+    const { data, changeDate, classes } = this.props;
     const hasData = !!data && data.length !== 0;
 
     if (!hasData) return `No Results.`;
@@ -46,7 +41,7 @@ class CampaignList extends Component {
         </TableHead>
         <TableBody>
           {data.map(campaign => (
-            <Campaign key={`${campaign._id}`} data={campaign} changeDate={this.changeDate} />
+            <Campaign key={`${campaign._id}`} data={campaign} changeDate={changeDate} />
           ))}
         </TableBody>
       </Table>

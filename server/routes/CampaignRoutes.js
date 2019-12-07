@@ -7,6 +7,11 @@ module.exports = app => {
     return res.status(200).send(campaigns);
   });
 
+  app.get(`/api/campaign/:id`, async (req, res) => {
+    let campaigns = await Campaign.find();
+    return res.status(200).send(campaigns);
+  });
+
   app.post(`/api/campaign`, async (req, res) => {
     let campaign = await Campaign.create(req.body);
     return res.status(201).send({

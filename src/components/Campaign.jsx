@@ -54,7 +54,7 @@ class Campaign extends Component {
   }
 
   render() {
-    const { data, classes } = this.props;
+    const { data, changeDate, classes } = this.props;
 
     const eventDate = new Date(data.createdOn);
 
@@ -101,6 +101,7 @@ class Campaign extends Component {
           open={this.state.open}
           type={this.state.type}
           onClose={this.handleClose}
+          onSave={changeDate}
           maxWidth="sm"
         />
       </>

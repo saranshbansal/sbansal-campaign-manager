@@ -3,9 +3,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import React, { PureComponent } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import CampaignName from "../CampaignName";
 
 class ShowModal extends PureComponent {
@@ -19,8 +20,34 @@ class ShowModal extends PureComponent {
     type: null
   };
 
+  constructor(props) {
+    super(props);
+
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleSaveDate = this.handleSaveDate.bind(this);
+  }
+
+  state = {
+    startDate: new Date()
+  };
+
+  handleDateChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
+
+  handleSaveDate() {
+    const { data, onSave, onClose } = this.props;
+    const { startDate } = this.state;
+    const campaignId = data._id;
+
+    onSave(campaignId, startDate);
+    onClose();
+  }
+
   render() {
-    const { data, type, onClose, ...others } = this.props;
+    const { data, type, onClose, onSave, ...others } = this.props;
 
     if (type === "price") {
       return (
@@ -31,7 +58,7 @@ class ShowModal extends PureComponent {
           <DialogContent>{`$ ${data.price}`}</DialogContent>{" "}
           <DialogActions>
             <Button variant="raised" color="primary" onClick={onClose}>
-              SAVE
+              Close
             </Button>
           </DialogActions>
         </Dialog>
@@ -43,18 +70,17 @@ class ShowModal extends PureComponent {
         <Dialog onClose={onClose} fullWidth={true} {...others}>
           <DialogTitle>Schedule Date</DialogTitle>
           <DialogContent>
-            <TextField
-              id="date"
-              label="Birthday"
-              type="date"
-              defaultValue="2017-05-24"
-              InputLabelProps={{
-                shrink: true
-              }}
+            <DatePicker
+              selected={this.state.startDate}
+              onChange={this.handleDateChange}
             />
           </DialogContent>
           <DialogActions>
-            <Button variant="raised" color="primary" onClick={onClose}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleSaveDate}
+            >
               SAVE
             </Button>
           </DialogActions>
