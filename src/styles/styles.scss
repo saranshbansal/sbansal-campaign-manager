@@ -1,0 +1,25 @@
+@import "./mixins/mixins.scss";
+
+.tabs {
+  & ol {
+    border-bottom: 2px solid $black;
+    padding-left: 0;
+
+    & li {
+      cursor: pointer;
+      display: inline-block;
+      list-style: none;
+      margin-bottom: -1px;
+      padding: 0.5rem 0.75rem;
+    }
+
+    & li.active {
+      background-color: $color-primary;
+      color: $white;
+      border: solid $black;
+      font-weight: bold;
+      zoom: 1.2;
+      border-width: 2px 2px 1px 2px;
+    }
+  }
+}
