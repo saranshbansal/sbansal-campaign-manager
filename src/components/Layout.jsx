@@ -12,13 +12,13 @@ const Layout = () => {
 
       <Tabs>
         <div label="Upcoming Campaigns">
-          <CampaignContainer status="1" />
+          <CampaignContainer type={'U'} />
         </div>
         <div label="Live Campaigns">
-          <CampaignContainer status="2" />
+          <CampaignContainer type={'L'} />
         </div>
         <div label="Past Campaigns">
-          <CampaignContainer status="3" />
+          <CampaignContainer type={'P'} />
         </div>
       </Tabs>
     </div>

@@ -1,6 +1,6 @@
+import { withStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { dateDiffIndays } from "../resources/util";
@@ -30,6 +30,7 @@ class Campaign extends Component {
     const { data, classes } = this.props;
 
     const eventDate = new Date(data.createdOn);
+
     const dateFormatted = eventDate.toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",

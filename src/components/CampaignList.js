@@ -25,9 +25,9 @@ class CampaignList extends Component {
 
   render() {
     const { data, classes } = this.props;
-    const hasGifs = !!data && data.length !== 0;
+    const hasData = !!data && data.length !== 0;
 
-    if (!hasGifs) return null;
+    if (!hasData) return `No Results.`;
 
     return (
       <Table className={classes.table}>

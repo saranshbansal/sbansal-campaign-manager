@@ -1,13 +1,29 @@
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 import React from "react";
 
-const LOADER = `https://media.giphy.com/media/8F0rJxdTt9xS/giphy.gif`;
+const styles = theme => ({
+  root: {
+    textAlign: "center"
+  },
+  progress: {
+    margin: theme.spacing.unit * 2
+  }
+});
 
-const Loader = () => {
+const Loader = props => {
+  const { classes } = props;
+
   return (
-    <div aria-label="loading...">
-      <img width="200" height="200" alt="loading..." src={LOADER} />
+    <div className={classes.root}>
+      <CircularProgress className={classes.progress} />
     </div>
   );
 };
 
-export default Loader;
+Loader.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Loader);

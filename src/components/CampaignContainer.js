@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { fetchCampaigns } from "../resources/api";
+import { fetchCampaignsByType } from "../resources/api";
 import CampaignList from "./CampaignList";
 import Loader from "./library/Loader";
 
@@ -12,7 +12,6 @@ class CampaignContainer extends Component {
 
   state = {
     campaigns: [],
-    limit: 20,
     offset: 0,
     loading: false
   };
@@ -22,26 +21,29 @@ class CampaignContainer extends Component {
   }
 
   async refreshResults(offset = 0) {
-    const { campaigns, limit } = this.state;
+    const { campaigns } = this.state;
+    const { type } = this.props;
+
+    this.setState(prevState => ({ loading: true }));
 
     let campaignContent = campaigns;
 
     try {
-      const result = await fetchCampaigns(offset, limit);
+      const result = await fetchCampaignsByType(type, offset);
 
       if (!!result) {
         result.map(campaign => {
           return campaignContent.push(campaign);
         });
+
+        this.setState({
+          campaigns: campaignContent,
+          offset: offset,
+          loading: false
+        });
       }
     } catch (e) {
       console.error(e);
-    } finally {
-      this.setState({
-        campaigns: campaignContent,
-        offset: offset,
-        loading: false
-      });
     }
   }
 
@@ -49,15 +51,14 @@ class CampaignContainer extends Component {
     const { campaigns, loading } = this.state;
 
     const hasResults = !!campaigns && campaigns.length > 0;
+
     const showResults = hasResults && !loading;
 
     return (
       <div className="campaigns">
         {loading && <Loader />}
 
-        {showResults && (
-          <CampaignList data={campaigns} />
-        )}
+        {showResults && <CampaignList data={campaigns} />}
       </div>
     );
   }
