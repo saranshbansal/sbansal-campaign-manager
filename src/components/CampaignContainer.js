@@ -48,9 +48,10 @@ class CampaignContainer extends Component {
 
   async handleChangeDate(campaignId, selectedDate) {
     console.log("date", campaignId, typeof(selectedDate));
+
     const { type } = this.props;
 
-    const updatedCampaign = {createdOn: selectedDate.getTime()}
+    const updatedCampaign = { createdOn: selectedDate.getTime() };
 
     try {
       const result = await updateCampaign(type, campaignId, updatedCampaign);
@@ -66,15 +67,11 @@ class CampaignContainer extends Component {
   render() {
     const { campaigns, loading } = this.state;
 
-    const hasResults = !!campaigns && campaigns.length > 0;
-
-    const showResults = hasResults && !loading;
-
     return (
       <div className="campaigns">
         {loading && <Loader />}
 
-        {showResults && (
+        {!loading && (
           <CampaignList data={campaigns} changeDate={this.handleChangeDate} />
         )}
       </div>

@@ -57,7 +57,7 @@ class ShowModal extends PureComponent {
           </DialogTitle>
           <DialogContent>{`$ ${data.price}`}</DialogContent>{" "}
           <DialogActions>
-            <Button variant="raised" color="primary" onClick={onClose}>
+            <Button variant="contained" color="primary" onClick={onClose}>
               Close
             </Button>
           </DialogActions>
