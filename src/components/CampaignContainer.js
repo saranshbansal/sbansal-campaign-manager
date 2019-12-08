@@ -42,7 +42,7 @@ class CampaignContainer extends Component {
         });
       }
     } catch (e) {
-      console.error(e);
+      this.setState(prevState => ({ loading: false }));
     }
   }
 

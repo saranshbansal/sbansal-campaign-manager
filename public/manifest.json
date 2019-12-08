@@ -1,6 +1,6 @@
 {
-  "short_name": "GIFt’ed",
-  "name": "The GIFt’ed App",
+  "short_name": "Campaign Manager",
+  "name": "The Campaign Manager App",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,14 +8,9 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo_mac-512.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "192x192"
-    },
-    {
-      "src": "logo_mac-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
   "start_url": ".",

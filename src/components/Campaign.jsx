@@ -1,3 +1,4 @@
+import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
@@ -6,7 +7,8 @@ import React, { Component } from "react";
 import { dateDiffIndays } from "../resources/util";
 import CampaignName from "./CampaignName";
 import CustomLink from "./library/CustomLink";
-import ShowModal from "./modals/ShowModal";
+import Icon from "./library/Icon";
+import ModalRoot from "./modals/ModalRoot";
 
 const styles = theme => ({
   date: {
@@ -14,7 +16,8 @@ const styles = theme => ({
   },
   daysToGo: {
     opacity: 0.6,
-    fontWeight: "lighter"
+    fontWeight: "lighter",
+    fontStyle: "italic"
   }
 });
 class Campaign extends Component {
@@ -32,20 +35,20 @@ class Campaign extends Component {
 
   state = {
     open: false,
-    type: null,
+    type: null
   };
 
   handleShowPrice() {
     this.setState({
       open: true,
-      type: 'price',
+      type: "price"
     });
   }
 
   handleScheduleDate() {
     this.setState({
       open: true,
-      type: 'date',
+      type: "date"
     });
   }
 
@@ -85,18 +88,53 @@ class Campaign extends Component {
             <CampaignName data={data} />
           </TableCell>
           <TableCell>
-            <CustomLink label="View Pricing" onClick={this.handleShowPrice} />
+            <Grid container spacing={8}>
+              <Grid item>
+                <Icon iconName="Price.png" />
+              </Grid>
+              <Grid item>
+                <CustomLink
+                  label="View Pricing"
+                  onClick={this.handleShowPrice}
+                />
+              </Grid>
+            </Grid>
           </TableCell>
-          <TableCell>CSV</TableCell>
-          <TableCell>Report</TableCell>
           <TableCell>
-            <CustomLink
-              label="Schedule Again"
-              onClick={this.handleScheduleDate}
-            />
+            <Grid container spacing={8}>
+              <Grid item>
+                <Icon iconName="file.png" />
+              </Grid>
+              <Grid item>
+                CSV
+              </Grid>
+            </Grid>
+          </TableCell>
+          <TableCell>
+            <Grid container spacing={8}>
+              <Grid item>
+                <Icon iconName="statistics-report.png" />
+              </Grid>
+              <Grid item>
+                Report
+              </Grid>
+            </Grid>
+          </TableCell>
+          <TableCell>
+            <Grid container spacing={8}>
+              <Grid item>
+                <Icon iconName="calendar.png" />
+              </Grid>
+              <Grid item>
+                <CustomLink
+                  label="Schedule Again"
+                  onClick={this.handleScheduleDate}
+                />
+              </Grid>
+            </Grid>
           </TableCell>
         </TableRow>
-        <ShowModal
+        <ModalRoot
           data={data}
           open={this.state.open}
           type={this.state.type}

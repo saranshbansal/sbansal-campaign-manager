@@ -1,8 +1,12 @@
 @import "./mixins/mixins.scss";
 
+.icon {
+  vertical-align: baseline;
+}
+
 .tabs {
   & ol {
-    border-bottom: 2px solid $black;
+    border-bottom: 1px solid $black;
     padding-left: 0;
 
     & li {
@@ -14,12 +18,11 @@
     }
 
     & li.active {
-      background-color: $color-primary;
-      color: $white;
-      border: solid $black;
+      color: $color-active;
+      border: solid $color-active;
       font-weight: bold;
       zoom: 1.2;
-      border-width: 2px 2px 1px 2px;
+      border-width: 0px 0px 4px 0px;
     }
   }
 }
@@ -27,13 +30,12 @@
 .react-datepicker-wrapper,
 .react-datepicker__input-container,
 .react-datepicker__input-container input {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 .react-datepicker-popper[data-placement^="bottom"],
-.react-datepicker-popper[data-placement^="top-start"]
-{
+.react-datepicker-popper[data-placement^="top-start"] {
   position: fixed !important;
   top: auto !important;
   left: auto !important;

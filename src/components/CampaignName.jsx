@@ -7,10 +7,11 @@ const styles = theme => ({
   },
   region: {
     opacity: 0.6,
-    fontWeight: "lighter"
-  },
+    fontWeight: "lighter",
+    fontStyle: "italic"
+  }
 });
-const CampaignName = (props) => {
+const CampaignName = props => {
   return (
     <>
       <div className={props.classes.name}>{props.data.name}</div>

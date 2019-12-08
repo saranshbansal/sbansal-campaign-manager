@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CampaignName from "../CampaignName";
 
-class ShowModal extends PureComponent {
+class ModalRoot extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     type: PropTypes.string,
@@ -92,4 +92,4 @@ class ShowModal extends PureComponent {
   }
 }
 
-export default ShowModal;
+export default ModalRoot;
