@@ -5,12 +5,17 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React from "react";
-import Language from "./Language";
+import LanguageOptions from "./LanguageOptions";
 import LocalizationContext from "./context/LocalizationContext";
+import Locales from "../resources/locales";
 
 const styles = {
   root: {
     flexGrow: 1
+  },
+  toolbarButtons: {
+    marginLeft: "auto",
+    marginRight: -12
   }
 };
 
@@ -24,12 +29,14 @@ function Header(props) {
           <AppBar position="static">
             <Toolbar variant="dense">
               <Typography variant="h6" color="inherit">
-                Campaign Manager
+                {Locales.header}
               </Typography>
               <Divider variant="middle" />
-              <Typography variant="h6" color="inherit">
-                <Language handleLanguageChange={context.handleLanguageChange} />
-              </Typography>
+              <span className={classes.toolbarButtons}>
+                <Typography variant="h6" color="inherit">
+                  <LanguageOptions handleLanguageChange={context.handleLanguageChange} />
+                </Typography>
+              </span>
             </Toolbar>
           </AppBar>
         </div>
