@@ -5,9 +5,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React from "react";
-import LanguageOptions from "./LanguageOptions";
-import LocalizationContext from "./context/LocalizationContext";
 import Locales from "../resources/locales";
+import LocalizationContext from "./context/LocalizationContext";
+import LanguageOptions from "./LanguageOptions";
 
 const styles = {
   root: {

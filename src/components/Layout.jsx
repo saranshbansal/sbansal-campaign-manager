@@ -1,27 +1,29 @@
 import React from "react";
+import Locales from "../resources/locales";
 import CampaignContainer from "./CampaignContainer.js";
+import LocalizationContext from "./context/LocalizationContext";
 import Header from "./Header";
 import Tabs from "./library/Tabs";
 
 const Layout = () => {
   return (
-    <div className="flex-container">
-      <Header />
+    <LocalizationContext.Consumer>
+      {context => (
+        <div className="flex-container">
+          <Header />
 
-      <h1>Manage Campaigns</h1>
+          <h1>{Locales.heading}</h1>
 
-      <Tabs>
-        <div label="Upcoming Campaigns">
-          <CampaignContainer type={"U"} />
+          <Tabs>
+            {Object.keys(Locales.tabNames).map(key => (
+              <div key={key} label={Locales.tabNames[key]}>
+                <CampaignContainer type={key} />
+              </div>
+            ))}
+          </Tabs>
         </div>
-        <div label="Live Campaigns">
-          <CampaignContainer type={"L"} />
-        </div>
-        <div label="Past Campaigns">
-          <CampaignContainer type={"P"} />
-        </div>
-      </Tabs>
-    </div>
+      )}
+    </LocalizationContext.Consumer>
   );
 };
 
