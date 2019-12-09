@@ -4,7 +4,7 @@ const Header = () => (
   <div role="heading" aria-level="1">
     <header>
       <nav>
-        <span>Bluestacks</span>
+        <span>Campaign Manager</span>
       </nav>
     </header>
   </div>

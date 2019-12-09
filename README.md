@@ -1,6 +1,6 @@
 # Campaign Manager App 
 
-A web page, which contains 3 tabs (Upcoming Campaigns, Live Campaign, Past campaigns) as shown below.
+A web app, which contains 3 tabs (Upcoming Campaigns, Live Campaign, Past campaigns) as shown below.
 
 ![alt text](http://cdn3.bluestacks.com/Interviews/Front-end/Dashboard%402x.png "Mockup")
 
