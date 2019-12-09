@@ -52,7 +52,6 @@ export const fetchCampaignsByType = async type => {
 
 export const updateCampaign = async (type, id, data) => {
   const url = `${UPDATE_CAMPAIGN}/${id}`;
-  console.log(url);
 
   try {
     const response = await fetch(url, {
@@ -63,27 +62,7 @@ export const updateCampaign = async (type, id, data) => {
       }
     });
 
-    let results = await response.json();
-
-    results = results.filter(campaign => {
-      const eventDate = new Date(campaign.createdOn);
-      const daysToGo = dateDiffIndays(new Date(), eventDate);
-
-      switch (type) {
-        case "U":
-          return daysToGo > 0;
-
-        case "L":
-          return daysToGo === 0;
-
-        case "P":
-          return daysToGo < 0;
-        default:
-          return true;
-      }
-    });
-
-    return results;
+    return await response.json();;
   } catch (e) {
     console.error(e);
   }

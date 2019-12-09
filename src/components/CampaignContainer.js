@@ -21,25 +21,24 @@ class CampaignContainer extends Component {
   }
 
   async refreshResults() {
-    const { campaigns } = this.state;
     const { type } = this.props;
 
     this.setState(prevState => ({ loading: true }));
 
-    let campaignContent = campaigns;
+    let campaigns = [];
 
     try {
-      const result = await fetchCampaignsByType(type);
+      const results = await fetchCampaignsByType(type);
 
-      if (!!result) {
-        result.map(campaign => {
-          return campaignContent.push(campaign);
+      if (!!results) {
+        results.map(campaign => {
+          return campaigns.push(campaign);
         });
 
-        this.setState({
-          campaigns: campaignContent,
+        this.setState(prevState => ({
+          campaigns,
           loading: false
-        });
+        }));
       }
     } catch (e) {
       this.setState(prevState => ({ loading: false }));
@@ -47,8 +46,6 @@ class CampaignContainer extends Component {
   }
 
   async handleChangeDate(campaignId, selectedDate) {
-    console.log("date", campaignId, typeof(selectedDate));
-
     const { type } = this.props;
 
     const updatedCampaign = { createdOn: selectedDate.getTime() };
@@ -68,13 +65,13 @@ class CampaignContainer extends Component {
     const { campaigns, loading } = this.state;
 
     return (
-      <div className="campaigns">
+      <>
         {loading && <Loader />}
 
         {!loading && (
           <CampaignList data={campaigns} changeDate={this.handleChangeDate} />
         )}
-      </div>
+      </>
     );
   }
 }
