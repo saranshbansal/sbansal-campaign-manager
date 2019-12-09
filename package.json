@@ -30,7 +30,8 @@
     "dev": "concurrently --kill-others-on-fail \"yarn run server\" \"yarn run start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "yarn && yarn run build"
   },
   "eslintConfig": {
     "extends": "react-app"
