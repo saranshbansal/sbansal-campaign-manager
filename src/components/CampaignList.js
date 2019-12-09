@@ -13,7 +13,10 @@ import LocalizationContext from "./context/LocalizationContext";
 const styles = () => ({
   table: {
     minWidth: "400px",
-    overflowX: "hide"
+  },
+  tableContainer: {
+    width: "100%",
+    overflowX: "auto"
   }
 });
 class CampaignList extends Component {
@@ -32,27 +35,29 @@ class CampaignList extends Component {
     return (
       <LocalizationContext.Consumer>
         {context => (
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell>{Locales.columns[0]}</TableCell>
-                <TableCell>{Locales.columns[1]}</TableCell>
-                <TableCell>{Locales.columns[2]}</TableCell>
-                <TableCell colSpan={3}>{Locales.columns[3]}</TableCell>
-              </TableRow>
-            </TableHead>
-            {hasData && (
-              <TableBody>
-                {data.map(campaign => (
-                  <Campaign
-                    key={`${campaign._id}`}
-                    data={campaign}
-                    changeDate={changeDate}
-                  />
-                ))}
-              </TableBody>
-            )}
-          </Table>
+          <div className={classes.tableContainer}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>{Locales.columns[0]}</TableCell>
+                  <TableCell>{Locales.columns[1]}</TableCell>
+                  <TableCell>{Locales.columns[2]}</TableCell>
+                  <TableCell colSpan={3}>{Locales.columns[3]}</TableCell>
+                </TableRow>
+              </TableHead>
+              {hasData && (
+                <TableBody>
+                  {data.map(campaign => (
+                    <Campaign
+                      key={`${campaign._id}`}
+                      data={campaign}
+                      changeDate={changeDate}
+                    />
+                  ))}
+                </TableBody>
+              )}
+            </Table>
+          </div>
         )}
       </LocalizationContext.Consumer>
     );

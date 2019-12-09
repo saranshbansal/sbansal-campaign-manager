@@ -9,7 +9,7 @@ const Layout = () => {
   return (
     <LocalizationContext.Consumer>
       {context => (
-        <div className="flex-container">
+        <div className="root">
           <Header />
 
           <h1>{Locales.heading}</h1>

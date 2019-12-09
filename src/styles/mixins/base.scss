@@ -49,9 +49,7 @@ input[type="text"] {
   }
 }
 
-.flex-container {
-  display: flex;
-  flex-flow: row wrap;
+.root {
   width: auto;
 
   & > h1 {
