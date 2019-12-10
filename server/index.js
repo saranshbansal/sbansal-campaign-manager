@@ -19,11 +19,11 @@ app.use(bodyParser.json());
 require('./routes/CampaignRoutes')(app);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
+  app.use(express.static(__dirname));
 
   const path = require("path");
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "index.html"));
   });
 }
 
