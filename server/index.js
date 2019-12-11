@@ -1,9 +1,9 @@
 const express = require("express");
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 // IMPORT MODELS
-require('./models/Campaign');
+require("./models/Campaign");
 
 const app = express();
 
@@ -16,10 +16,30 @@ mongoose.connect(
 app.use(bodyParser.json());
 
 //IMPORT ROUTES
-require('./routes/CampaignRoutes')(app);
+require("./routes/CampaignRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
+
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+
+    if (req.method === "OPTIONS") {
+      res.header(
+        "Access-Control-Allow-Methods",
+        "PUT, POST, PATCH, DELETE, GET"
+      );
+
+      return res.status(200).json({});
+    }
+
+    next();
+  });
 
   const path = require("path");
   app.get("*", (req, res) => {

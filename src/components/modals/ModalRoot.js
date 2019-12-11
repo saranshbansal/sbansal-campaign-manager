@@ -31,6 +31,15 @@ class ModalRoot extends PureComponent {
     startDate: new Date()
   };
 
+  componentDidMount() {
+    const { data } = this.props;
+    const eventDate = new Date(data.createdOn);
+
+    this.setState({
+      startDate: eventDate
+    });
+  }
+
   handleDateChange(date) {
     this.setState({
       startDate: date
