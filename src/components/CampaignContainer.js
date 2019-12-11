@@ -32,14 +32,13 @@ class CampaignContainer extends Component {
 
       if (!!results) {
         results.map(campaign => {
-          return campaigns.push(campaign);
+          campaigns.push(campaign);
         });
-
-        this.setState(prevState => ({
-          campaigns,
-          loading: false
-        }));
       }
+      this.setState(prevState => ({
+        campaigns,
+        loading: false
+      }));
     } catch (e) {
       this.setState(prevState => ({ loading: false }));
     }
